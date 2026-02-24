@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Covered California + OptimaNova AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0f172a;
+  --slate: #1e293b;
+  --teal: #0d9488;
+  --teal-light: #14b8a6;
+  --purple: #7c3aed;
+  --warm: #f59e0b;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #334155;
+  --muted: #64748b;
+  --border: #e2e8f0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a2744 50%, var(--slate) 100%);
+  color: white;
+  padding: 3rem 2rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(13,148,136,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--purple), var(--teal));
+}
+
+.hero-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(13,148,136,0.15);
+  border: 1px solid rgba(13,148,136,0.3);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 1rem;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.hero h1 span { color: var(--teal-light); }
+
+.hero-sub {
+  font-size: 1rem;
+  color: #94a3b8;
+  max-width: 600px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.hero-meta strong { color: white; font-weight: 500; }
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--navy);
+  margin-bottom: 0.75rem;
+}
+
+.section-text {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 700px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.7rem; }
+  .hero-meta { flex-direction: column; gap: 0.5rem; }
+}
+
+.card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-icon.teal { background: rgba(13,148,136,0.1); color: var(--teal); }
+.card-icon.purple { background: rgba(124,58,237,0.1); color: var(--purple); }
+.card-icon.warm { background: rgba(245,158,11,0.1); color: var(--warm); }
+.card-icon.navy { background: rgba(15,23,42,0.08); color: var(--navy); }
+
+.card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.35rem;
+}
+
+.card p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.highlight-card {
+  background: linear-gradient(135deg, var(--navy), var(--slate));
+  color: white;
+  border: none;
+  padding: 1.75rem;
+}
+
+.highlight-card h3 { color: white; }
+.highlight-card p { color: #94a3b8; }
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.stat-box .number {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--teal);
+}
+
+.stat-box .label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+.use-case {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.use-case:last-child { border-bottom: none; }
+
+.use-case-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.use-case h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.2rem;
+}
+
+.use-case p {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.cta-section {
+  background: linear-gradient(135deg, var(--navy), var(--slate));
+  border-radius: 16px;
+  padding: 2rem;
+  color: white;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.cta-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.cta-section p {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  max-width: 500px;
+  margin: 0 auto 1.25rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--teal);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.cta-btn:hover { background: var(--teal-light); }
+
+.footer {
+  text-align: center;
+  padding: 1.5rem 2rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer a { color: var(--teal); text-decoration: none; }
+
+.pill {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.pill.relevant { background: rgba(13,148,136,0.1); color: var(--teal); }
+.pill.compliance { background: rgba(124,58,237,0.1); color: var(--purple); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Prepared for Covered California</div>
+    <h1>AI That Serves the <span>Mission</span>, Not Just the Machine</h1>
+    <p class="hero-sub">A partnership exploration between Covered California and OptimaNova AI. Human-centered AI adoption designed for healthcare organizations protecting vulnerable populations.</p>
+    <div class="hero-meta">
+      <div><strong>Prepared for</strong><br>Dr. S. Monica Soni, MD, Chief Medical Officer</div>
+      <div><strong>Prepared by</strong><br>Joe Paul, Founder &amp; CEO, OptimaNova AI</div>
+      <div><strong>Introduced by</strong><br>Dr. Alfred Glover</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- WHY NOW -->
+  <div class="section">
+    <div class="section-label">Why Now</div>
+    <h2 class="section-title">Covered California at a Critical Inflection Point</h2>
+    <p class="section-text">Federal tax credit expirations, a 10.3% rate increase, $1 trillion in projected Medicaid cuts, and new California AI compliance laws are converging. The organizations serving the most Californians need to do more with fewer resources. AI can help, but only if it is adopted thoughtfully.</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="number">~2M</div>
+      <div class="label">Californians Covered</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">10.3%</div>
+      <div class="label">2026 Rate Increase</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">$190M</div>
+      <div class="label">State Subsidy Allocation</div>
+    </div>
+  </div>
+
+  <!-- ABOUT OPTIMANOVA -->
+  <div class="section">
+    <div class="section-label">Who We Are</div>
+    <h2 class="section-title">OptimaNova AI</h2>
+    <p class="section-text">We are a Washington, D.C.-based AI consulting firm that democratizes AI access for mission-driven organizations. We don't just deploy technology. We focus on human adoption at scale. Named one of Washington Business Journal's "11 Startups to Watch in 2025."</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon teal">&#9670;</div>
+      <h3>AI Readiness &amp; Strategy</h3>
+      <p>Assess where AI fits, identify high-impact use cases, and build adoption roadmaps tailored to your teams and workflows.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon purple">&#9672;</div>
+      <h3>Workforce AI Training</h3>
+      <p>Role-specific training that meets people where they are. Clinical staff, operations, leadership. Not generic tech lectures.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon warm">&#9673;</div>
+      <h3>Custom AI Assistants</h3>
+      <p>Purpose-built tools for member services, clinical operations, compliance, and internal knowledge management.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon navy">&#9674;</div>
+      <h3>Agentic Workflows</h3>
+      <p>Multi-step AI systems that coordinate tasks, manage workflows, and collaborate alongside staff in real time.</p>
+    </div>
+  </div>
+
+  <!-- HEALTHCARE USE CASES -->
+  <div class="section" style="margin-top: 2rem;">
+    <div class="section-label">Healthcare Applications</div>
+    <h2 class="section-title">Where AI Meets Covered California's Challenges</h2>
+  </div>
+
+  <div class="card" style="padding: 0.5rem 1.5rem;">
+    <div class="use-case">
+      <div class="use-case-num">1</div>
+      <div>
+        <h4>Member Communications &amp; Enrollment Support <span class="pill relevant">High Impact</span></h4>
+        <p>AI-powered multilingual outreach to help members navigate plan changes, federal subsidy expirations, and open enrollment. Reduce call center volume while improving member experience.</p>
+      </div>
+    </div>
+    <div class="use-case">
+      <div class="use-case-num">2</div>
+      <div>
+        <h4>Operational Efficiency &amp; Process Automation</h4>
+        <p>Automate claims triage, grievance routing, prior authorization workflows, and reporting. Free staff to focus on the work that requires human judgment.</p>
+      </div>
+    </div>
+    <div class="use-case">
+      <div class="use-case-num">3</div>
+      <div>
+        <h4>Clinical Decision Support &amp; Care Gap Identification</h4>
+        <p>AI tools that surface care gaps, flag high-risk populations for early intervention, and support care coordination across the network.</p>
+      </div>
+    </div>
+    <div class="use-case">
+      <div class="use-case-num">4</div>
+      <div>
+        <h4>Compliance &amp; AI Transparency <span class="pill compliance">CA Law</span></h4>
+        <p>Built-in audit trails, bias testing frameworks, and alignment with California's AI healthcare laws (AB 489, SB 1120, AB 3030). Every interaction logged and auditable.</p>
+      </div>
+    </div>
+    <div class="use-case">
+      <div class="use-case-num">5</div>
+      <div>
+        <h4>Knowledge Management</h4>
+        <p>Internal AI-powered search so staff find policies, procedures, clinical guidelines, and answers in seconds. Reduce onboarding time and institutional knowledge loss.</p>
+      </div>
+    </div>
+    <div class="use-case">
+      <div class="use-case-num">6</div>
+      <div>
+        <h4>Health Equity by Design</h4>
+        <p>AI systems designed to reduce disparities, not create them. Multilingual capability, bias testing protocols, human escalation paths, and transparent decision-making.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPROACH -->
+  <div class="section" style="margin-top: 2rem;">
+    <div class="section-label">Our Approach</div>
+    <h2 class="section-title">How We Work</h2>
+  </div>
+
+  <div class="card highlight-card">
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: center;">
+      <div>
+        <div style="font-size: 1.8rem; margin-bottom: 0.3rem;">&#x2460;</div>
+        <h3 style="font-size: 0.9rem;">Discovery</h3>
+        <p style="font-size: 0.82rem;">We listen first. Map your workflows, pain points, and team readiness before proposing solutions.</p>
+      </div>
+      <div>
+        <div style="font-size: 1.8rem; margin-bottom: 0.3rem;">&#x2461;</div>
+        <h3 style="font-size: 0.9rem;">Pilot</h3>
+        <p style="font-size: 0.82rem;">Start with one high-impact use case. Prove value in 8 weeks. Measure results. Then scale.</p>
+      </div>
+      <div>
+        <div style="font-size: 1.8rem; margin-bottom: 0.3rem;">&#x2462;</div>
+        <h3 style="font-size: 0.9rem;">Adoption at Scale</h3>
+        <p style="font-size: 0.82rem;">Train your teams, embed AI into daily workflows, and build internal capacity so you own the capability.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h3>Let's Explore What's Possible</h3>
+    <p>A 30-minute discovery call to identify where AI can create the most value for Covered California's operations and the communities you serve.</p>
+    <a href="mailto:joepaul@optimanova.ai?subject=Covered California + OptimaNova AI&cc=podiatrist803@gmail.com" class="cta-btn">Schedule a Conversation</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>OptimaNova AI</strong> &nbsp;|&nbsp; Joe Paul, Founder &amp; CEO &nbsp;|&nbsp; <a href="mailto:joepaul@optimanova.ai">joepaul@optimanova.ai</a> &nbsp;|&nbsp; (202) 553-7718 &nbsp;|&nbsp; <a href="https://www.optimanova.ai">www.OptimaNova.ai</a>
+  <br>Washington, D.C. &nbsp;|&nbsp; Prepared February 2026
+</div>
+
+</body>
+</html>
